@@ -15,7 +15,7 @@ public class SqlSubmissionService {
 
     @PostConstruct
     public void run() {
-        // Step 1: Generate webhook
+       
         String initUrl = "https://bfhldevapigw.healthrx.co.in/hiring/generateWebhook/JAVA";
 
         Map<String, String> requestBody = Map.of(
@@ -36,17 +36,17 @@ public class SqlSubmissionService {
 
         WebhookResponse webhookResponse = response.getBody();
         if (webhookResponse == null || webhookResponse.getWebhook() == null) {
-            System.out.println("❌ Failed to retrieve webhook or token.");
+            System.out.println("Failed to retrieve webhook or token.");
             return;
         }
 
         String webhookUrl = webhookResponse.getWebhook();
         String accessToken = webhookResponse.getAccessToken();
 
-        System.out.println("✅ Webhook URL: " + webhookUrl);
-        System.out.println("✅ Access Token: " + accessToken);
+        System.out.println("Webhook URL: " + webhookUrl);
+        System.out.println("Access Token: " + accessToken);
 
-        // Step 2: SQL answer for Question 1
+       
         String finalQuery = """
                 SELECT 
                     p.AMOUNT AS SALARY,
@@ -61,7 +61,7 @@ public class SqlSubmissionService {
                 LIMIT 1;
                 """;
 
-        // Step 3: Submit final query
+       
         HttpHeaders postHeaders = new HttpHeaders();
         postHeaders.setContentType(MediaType.APPLICATION_JSON);
         postHeaders.setBearerAuth(accessToken);
@@ -77,10 +77,10 @@ public class SqlSubmissionService {
                     String.class
             );
 
-            System.out.println("✅ Submission Response: " + submissionResponse.getStatusCode());
-            System.out.println("✅ Response Body: " + submissionResponse.getBody());
+            System.out.println("Submission Response: " + submissionResponse.getStatusCode());
+            System.out.println("Response Body: " + submissionResponse.getBody());
         } catch (Exception e) {
-            System.out.println("❌ Submission failed: " + e.getMessage());
+            System.out.println("Submission failed: " + e.getMessage());
             e.printStackTrace();
         }
     }
