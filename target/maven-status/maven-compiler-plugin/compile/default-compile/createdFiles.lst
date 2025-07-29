@@ -1,0 +1,3 @@
+com\example\sqlsubmit\model\WebhookResponse.class
+com\example\sqlsubmit\service\SqlSubmissionService.class
+com\example\sqlsubmit\SqlSubmitApplication.class
